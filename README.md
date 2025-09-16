@@ -22,7 +22,44 @@ A TypeScript-based MCP (Model Context Protocol) server that enables Large Langua
 
 ## 🚀 Quick Start
 
-### Installation
+### Installation Options
+
+#### Option 1: Install via MCPB Package (Recommended for Claude Desktop)
+
+The easiest way to install this MCP server in Claude Desktop is using the pre-built MCPB package:
+
+1. **Download the latest release:**
+   - Go to [Releases](https://github.com/patrickfreyer/mcp-server-snowflake/releases)
+   - Download the `snowflake-mcp-v1.0.0.mcpb` file
+
+2. **Install in Claude Desktop:**
+   - Open Claude Desktop
+   - Navigate to Settings → Developer → MCP Servers
+   - Click "Install from file"
+   - Select the downloaded `.mcpb` file
+   - Configure your Snowflake credentials when prompted
+
+#### Option 2: Build MCPB Package from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/patrickfreyer/mcp-server-snowflake.git
+cd mcp-server-snowflake
+
+# Install dependencies
+npm install
+
+# Build the TypeScript server
+npm run build
+
+# Create the MCPB package
+./build-mcpb.sh
+
+# The package will be created as snowflake-mcp-v1.0.0.mcpb
+# Install this file in Claude Desktop as described above
+```
+
+#### Option 3: Manual Installation (For Development)
 
 ```bash
 # Clone the repository
@@ -37,6 +74,23 @@ npm run build
 ```
 
 ### Configuration
+
+Configuration depends on your installation method:
+
+#### For MCPB Package Users
+
+When you install the MCPB package, Claude Desktop will automatically prompt you for:
+- Snowflake Account (e.g., `your-account.region.provider`)
+- Warehouse name
+- Username (typically your email)
+- Password
+- Role (optional)
+- Database (optional)
+- Schema (optional)
+
+These credentials are securely stored in Claude Desktop's configuration.
+
+#### For Manual Installation
 
 1. **Set up environment variables:**
 
@@ -177,6 +231,42 @@ chmod 600 ~/.env
 chmod 600 ~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
+## 📦 Building MCPB Packages
+
+The MCPB (MCP Bundle) format allows for easy distribution and installation of MCP servers in Claude Desktop.
+
+### Building a Package
+
+```bash
+# Ensure the project is built
+npm run build
+
+# Create the MCPB package
+./build-mcpb.sh
+```
+
+This will create a `snowflake-mcp-v1.0.0.mcpb` file containing:
+- Compiled server code
+- Manifest with configuration schema
+- Production dependencies
+- Installation metadata
+
+### Package Contents
+
+The MCPB package includes:
+- `manifest.json` - Defines configuration parameters and server entry point
+- `dist/` - Compiled TypeScript server code
+- `node_modules/` - Production dependencies only
+- `README.md` - Package documentation
+
+### Manifest Configuration
+
+The `manifest.json` file defines:
+- User configuration parameters (without default values for security)
+- Server entry point and environment variable mapping
+- Tool definitions for Snowflake operations
+- Package metadata (name, version, author, etc.)
+
 ## 🧪 Development
 
 ### Setup Development Environment
@@ -209,6 +299,8 @@ mcp-server-snowflake/
 ├── .env.example         # Environment variable template
 ├── .github/
 │   └── workflows/       # CI/CD workflows
+├── manifest.json        # MCPB package configuration
+├── build-mcpb.sh        # Script to build MCPB package
 ├── package.json         # Node.js dependencies
 ├── tsconfig.json        # TypeScript configuration
 ├── LICENSE             # MIT License
