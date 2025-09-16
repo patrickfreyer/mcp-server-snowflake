@@ -1,6 +1,5 @@
-# MCP Server Snowflake
+# Node-based Snowflake MCP
 
-[![npm version](https://img.shields.io/npm/v/mcp-server-snowflake.svg)](https://www.npmjs.com/package/mcp-server-snowflake)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/patrickfreyer/mcp-server-snowflake/actions/workflows/ci.yml/badge.svg)](https://github.com/patrickfreyer/mcp-server-snowflake/actions/workflows/ci.yml)
 
