@@ -10,11 +10,14 @@ import {
   ErrorCode,
   McpError
 } from '@modelcontextprotocol/sdk/types.js';
-import * as snowflake from 'snowflake-sdk';
 import { promisify } from 'util';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const snowflake = require('snowflake-sdk');
 
 // Load environment variables
 const __filename = fileURLToPath(import.meta.url);
@@ -33,7 +36,7 @@ interface SnowflakeConfig {
 
 class SnowflakeMCPServer {
   private server: Server;
-  private connection: snowflake.Connection | null = null;
+  private connection: any | null = null;
   private config: SnowflakeConfig;
 
   constructor() {
@@ -98,7 +101,7 @@ class SnowflakeMCPServer {
       return;
     }
 
-    const connectionOptions: snowflake.ConnectionOptions = {
+    const connectionOptions: any = {
       account: this.config.account,
       username: this.config.username,
       password: this.config.password,
@@ -124,7 +127,7 @@ class SnowflakeMCPServer {
     return new Promise((resolve, reject) => {
       this.connection!.execute({
         sqlText,
-        complete: (err, stmt, rows) => {
+        complete: (err: any, stmt: any, rows: any) => {
           if (err) {
             reject(err);
           } else {
