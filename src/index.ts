@@ -69,6 +69,12 @@ class SnowflakeMCPServer {
       role: process.env.SNOWFLAKE_ROLE,
     };
 
+    // Debug logging
+    console.error('Environment variables received:');
+    console.error('SNOWFLAKE_ACCOUNT:', process.env.SNOWFLAKE_ACCOUNT ? 'SET' : 'NOT SET');
+    console.error('SNOWFLAKE_USER:', process.env.SNOWFLAKE_USER ? 'SET' : 'NOT SET');
+    console.error('SNOWFLAKE_PASSWORD:', process.env.SNOWFLAKE_PASSWORD ? 'SET' : 'NOT SET');
+
     // Validate required fields
     if (!config.account || !config.username || !config.password) {
       console.error('Error: Missing required Snowflake configuration.');

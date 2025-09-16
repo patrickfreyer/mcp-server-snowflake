@@ -1,0 +1,104 @@
+{
+  "dxt_version": "0.1",
+  "name": "Snowflake MCP Server",
+  "version": "1.0.0",
+  "description": "MCP server for connecting to Snowflake data warehouse, enabling data queries and schema exploration for LCL retail analytics",
+  "author": {
+    "name": "Patrick Freyer",
+    "email": "freyer.patrick@bcg.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/patrickfreyer/mcp-server-snowflake",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickfreyer/mcp-server-snowflake.git"
+  },
+  "documentation": "https://github.com/patrickfreyer/mcp-server-snowflake#readme",
+  "user_config": {
+    "snowflake_account": {
+      "type": "string",
+      "title": "Snowflake Account",
+      "description": "Your Snowflake account identifier",
+      "required": true
+    },
+    "snowflake_warehouse": {
+      "type": "string",
+      "title": "Warehouse",
+      "description": "Snowflake warehouse to use for queries",
+      "required": true
+    },
+    "snowflake_user": {
+      "type": "string",
+      "title": "Username",
+      "description": "Your Snowflake username",
+      "required": true
+    },
+    "snowflake_password": {
+      "type": "string",
+      "title": "Password",
+      "description": "Your Snowflake password",
+      "required": true
+    },
+    "snowflake_role": {
+      "type": "string",
+      "title": "Role",
+      "description": "Snowflake role to use",
+      "required": true
+    },
+    "snowflake_database": {
+      "type": "string",
+      "title": "Database",
+      "description": "Default database to connect to",
+      "required": true
+    },
+    "snowflake_schema": {
+      "type": "string",
+      "title": "Schema",
+      "description": "Default schema to use",
+      "required": true
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "SNOWFLAKE_ACCOUNT": "${user_config.snowflake_account}",
+        "SNOWFLAKE_WAREHOUSE": "${user_config.snowflake_warehouse}",
+        "SNOWFLAKE_USER": "${user_config.snowflake_user}",
+        "SNOWFLAKE_PASSWORD": "${user_config.snowflake_password}",
+        "SNOWFLAKE_ROLE": "${user_config.snowflake_role}",
+        "SNOWFLAKE_DATABASE": "${user_config.snowflake_database}",
+        "SNOWFLAKE_SCHEMA": "${user_config.snowflake_schema}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "read_query",
+      "description": "Execute a SELECT query on Snowflake. Supports all Snowflake SQL syntax for data retrieval."
+    },
+    {
+      "name": "list_databases",
+      "description": "List all available databases in the Snowflake account"
+    },
+    {
+      "name": "list_schemas",
+      "description": "List all schemas in a database"
+    },
+    {
+      "name": "list_tables",
+      "description": "List all tables in a schema"
+    },
+    {
+      "name": "describe_table",
+      "description": "Get detailed schema information for a table including columns, data types, and constraints"
+    }
+  ],
+  "prompts": []
+}
